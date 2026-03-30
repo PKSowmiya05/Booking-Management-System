@@ -5,6 +5,15 @@ app_description = "Booking management system for wanderlust travels"
 app_email = "karthisowmiya05@gmail.com"
 app_license = "mit"
 
+app_include_js="booking.bundle.js"
+
+extend_bootinfo = "booking_management.booking_management_system.custom.extend_bootinfo"
+
+scheduler_events = {
+    "daily": [
+        "booking_management.booking_management_system.api.payment_reminder"
+    ]
+}
 # Apps
 # ------------------
 

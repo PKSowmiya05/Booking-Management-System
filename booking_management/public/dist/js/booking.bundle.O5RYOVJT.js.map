@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../../apps/booking_management/booking_management/public/js/booking.bundle.js"],
+  "sourcesContent": ["frappe.provide(\"frappe.views\");\n\nsetTimeout(() => {\n\tif (frappe.boot.booking_sname) {\n\t\tlet agency_name = frappe.boot.booking_sname;\n\t\t$(\".navbar-home\").append(\n\t\t\t`<span style=\"margin-left:10px; font-weight:600;\">\n                ${agency_name}\n            </span>`\n\t\t);\n\t}\n}, 100);\n"],
+  "mappings": ";;AAAA,SAAO,QAAQ,cAAc;AAE7B,aAAW,MAAM;AAChB,QAAI,OAAO,KAAK,eAAe;AAC9B,UAAI,cAAc,OAAO,KAAK;AAC9B,QAAE,cAAc,EAAE;AAAA,QACjB;AAAA,kBACe;AAAA;AAAA,MAEhB;AAAA,IACD;AAAA,EACD,GAAG,GAAG;",
+  "names": []
+}

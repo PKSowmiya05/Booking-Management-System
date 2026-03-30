@@ -1,0 +1,248 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-23 17:15:05.691398",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_details_section",
+  "customer_name",
+  "customer_phone",
+  "customer_email",
+  "preferences_section",
+  "seating",
+  "food",
+  "airline",
+  "hotel_type",
+  "travel_info_section",
+  "having_passport",
+  "passport_number",
+  "expiry_date",
+  "emergency_section",
+  "emergency_contact_name",
+  "emergency_contact_number",
+  "customer_history_section",
+  "total_booking",
+  "total_amount",
+  "pending_amount",
+  "last_booking_date",
+  "loyalty_info_section",
+  "loyalty_tier",
+  "has_overdue_payments",
+  "has_active_disputes"
+ ],
+ "fields": [
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Customer Phone",
+   "unique": 1
+  },
+  {
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email",
+   "options": "Email"
+  },
+  {
+   "fieldname": "customer_details_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Details"
+  },
+  {
+   "fieldname": "preferences_section",
+   "fieldtype": "Section Break",
+   "label": "Preferences"
+  },
+  {
+   "fieldname": "seating",
+   "fieldtype": "Select",
+   "label": "Seating",
+   "options": "\nWindow\nMiddle\nAisle"
+  },
+  {
+   "fieldname": "food",
+   "fieldtype": "Select",
+   "label": "Food",
+   "options": "\nVeg\nNon Veg"
+  },
+  {
+   "fieldname": "travel_info_section",
+   "fieldtype": "Section Break",
+   "label": "Travel Info"
+  },
+  {
+   "fieldname": "having_passport",
+   "fieldtype": "Select",
+   "label": "Having Passport",
+   "options": "\nYes\nNo"
+  },
+  {
+   "depends_on": "eval:doc.having_passport == \"Yes\"",
+   "fieldname": "passport_number",
+   "fieldtype": "Data",
+   "label": "Passport Number"
+  },
+  {
+   "depends_on": "eval:doc.having_passport == \"Yes\"",
+   "fieldname": "expiry_date",
+   "fieldtype": "Date",
+   "label": "Expiry Date"
+  },
+  {
+   "fieldname": "emergency_section",
+   "fieldtype": "Section Break",
+   "label": "Emergency"
+  },
+  {
+   "fieldname": "emergency_contact_name",
+   "fieldtype": "Data",
+   "label": "Emergency contact name"
+  },
+  {
+   "fieldname": "emergency_contact_number",
+   "fieldtype": "Phone",
+   "label": "Emergency contact number"
+  },
+  {
+   "fieldname": "loyalty_info_section",
+   "fieldtype": "Section Break",
+   "label": "Loyalty info"
+  },
+  {
+   "fieldname": "loyalty_tier",
+   "fieldtype": "Select",
+   "label": "Loyalty Tier",
+   "options": "\nSilver\nGold\nPlattinum"
+  },
+  {
+   "fieldname": "airline",
+   "fieldtype": "Data",
+   "label": "Airline"
+  },
+  {
+   "fieldname": "hotel_type",
+   "fieldtype": "Select",
+   "label": "Hotel Type",
+   "options": "\nBudget\nStandard\nLuxury"
+  },
+  {
+   "fieldname": "customer_history_section",
+   "fieldtype": "Section Break",
+   "label": "Customer History"
+  },
+  {
+   "fieldname": "total_booking",
+   "fieldtype": "Int",
+   "label": "Total Booking",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_amount",
+   "fieldtype": "Currency",
+   "label": "Total Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "pending_amount",
+   "fieldtype": "Currency",
+   "label": "Pending Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_booking_date",
+   "fieldtype": "Date",
+   "label": "Last Booking Date",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "has_overdue_payments",
+   "fieldtype": "Check",
+   "label": "Has overdue payments"
+  },
+  {
+   "default": "0",
+   "fieldname": "has_active_disputes",
+   "fieldtype": "Check",
+   "label": "Has active disputes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-27 11:42:41.498665",
+ "modified_by": "Administrator",
+ "module": "Booking Management System",
+ "name": "Customer",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Travel Agent",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Senior Agent",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Finance Mnager",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Operation Head",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
