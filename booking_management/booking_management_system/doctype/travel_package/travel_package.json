@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-03-26 11:43:43.553290",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "package_name",
+  "category_name",
+  "vendor",
+  "location",
+  "duration",
+  "section_break_hykj",
+  "package_item",
+  "section_break_gbvi",
+  "toatl_price",
+  "seasonal_price",
+  "availability",
+  "total_slots",
+  "booked_slots",
+  "available_slots"
+ ],
+ "fields": [
+  {
+   "fieldname": "package_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Package Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "category_name",
+   "fieldtype": "Link",
+   "label": "Category Name",
+   "options": "Service Discovery"
+  },
+  {
+   "fieldname": "vendor",
+   "fieldtype": "Link",
+   "label": "Vendor",
+   "options": "Vendor"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Data",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "section_break_hykj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "package_item",
+   "fieldtype": "Table",
+   "label": "Package Item",
+   "options": "Package item"
+  },
+  {
+   "fieldname": "section_break_gbvi",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "toatl_price",
+   "fieldtype": "Currency",
+   "label": "Total Price",
+   "read_only": 1
+  },
+  {
+   "fieldname": "availability",
+   "fieldtype": "Select",
+   "label": "Availability",
+   "options": "\nAvailable\nNot Available"
+  },
+  {
+   "fieldname": "total_slots",
+   "fieldtype": "Int",
+   "label": "Total Slots"
+  },
+  {
+   "fieldname": "booked_slots",
+   "fieldtype": "Int",
+   "label": "Booked Slots"
+  },
+  {
+   "fieldname": "available_slots",
+   "fieldtype": "Int",
+   "label": "Available Slots",
+   "read_only": 1
+  },
+  {
+   "fieldname": "seasonal_price",
+   "fieldtype": "Currency",
+   "label": "Seasonal Price"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-03-27 11:51:55.531962",
+ "modified_by": "Administrator",
+ "module": "Booking Management System",
+ "name": "Travel Package",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Travel Agent",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Senior Agent",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Finance Mnager",
+   "share": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Operation Head",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
