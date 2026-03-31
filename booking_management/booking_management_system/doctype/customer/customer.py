@@ -7,20 +7,12 @@ from frappe.utils import today
 
 class Customer(Document):
  def validate(self):
-    if self.expiry_date:
-        if self.expiry_date < today():
+    if self.expiry_date and self.expiry_date < today():
             frappe.throw("Passport is expired")
 
     if not self.customer_phone:
         frappe.throw("Phone is required")
+    if frappe.db.exists("Customer",{ "customer_phone":self.customer_phone,"name": ["!=", self.name]}):
+          frappe.throw("Phone number already exists")
 
-    count = frappe.db.count("Travel Booking", {
-        "customer": self.customer_name
-    })
-
-    if count >= 10:
-        self.loyalty_tier = "Platinum"
-    elif count >= 5:
-        self.loyalty_tier = "Gold"
-    else:
-        self.loyalty_tier = "Silver"
+        

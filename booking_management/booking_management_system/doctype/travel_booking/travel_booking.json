@@ -165,7 +165,7 @@
    "label": "Is International"
   },
   {
-   "depends_on": "eval:is_international == 1",
+   "depends_on": "eval:doc.is_international == 1",
    "fetch_from": "customer.passport_number",
    "fieldname": "passport_number",
    "fieldtype": "Data",
@@ -173,7 +173,7 @@
    "read_only": 1
   },
   {
-   "depends_on": "eval:is_international == 1",
+   "depends_on": "eval:doc.is_international == \"1\"",
    "fetch_from": "customer.expiry_date",
    "fieldname": "expiry_date",
    "fieldtype": "Date",
@@ -185,7 +185,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-30 11:59:33.745699",
+ "modified": "2026-03-31 13:55:04.510341",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Travel Booking",

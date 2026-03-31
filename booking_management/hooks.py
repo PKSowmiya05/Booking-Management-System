@@ -11,7 +11,7 @@ extend_bootinfo = "booking_management.booking_management_system.custom.extend_bo
 
 scheduler_events = {
     "daily": [
-        "booking_management.booking_management_system.api.payment_reminder"
+        "booking_management.booking_management_system.api.payment_remainder"
     ]
 }
 # Apps

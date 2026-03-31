@@ -6,7 +6,26 @@ from frappe.model.document import Document
 
 
 class PaymentEntry(Document):
+    def validate(self):
+        if not self.payment_mode:
+            frappe.throw("Payment mode is mandatory")
+
+        if not self.reference_number:
+            frappe.throw("Enter the reference number")
+
+        if self.payment_type == "Refund Payment" and self.refund_request:
+
+            existing = frappe.db.exists("Payment Entry", {
+                "refund_request": self.refund_request,
+                "docstatus": 1
+            })
+
+            if existing:
+                frappe.throw("Refund already paid!")    
+
+    
     def on_submit(self):
+      if self.payment_type == "Booking Payment":
         doc =frappe.get_doc("Travel Booking",self.travel_booking)
         remaining= self.amount_paid
         for item in doc.payment_schedule:
@@ -22,15 +41,21 @@ class PaymentEntry(Document):
                 if remaining<=0:
                     break
         total_paid=0
-        for item in self.payment_schedule:
+        for item in doc.payment_schedule:
             total_paid+=item.paid_amount or 0
-        self.balance_amount= self.grand_total - total_paid
+        doc.balance_amount= doc.grand_total - total_paid
 
         if total_paid==0:
-            self.status="Confirmed"
+            doc.status="Confirmed"
         elif total_paid<self.grand_total:
-            self.status="Partially Paid"
+            doc.status="Partially Paid"
         else:
-            self.status="Paid"
+            doc.status="Paid"
 
         doc.save()
+
+
+      if self.payment_type == "Refund Payment" and self.refund_request:
+            doc = frappe.get_doc("Refund Request", self.refund_request)
+            doc.status = "Paid"
+            doc.save()
