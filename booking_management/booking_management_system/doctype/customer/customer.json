@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:customer_name",
  "creation": "2026-03-23 17:15:05.691398",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -37,7 +38,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Customer Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "customer_phone",
@@ -118,6 +120,7 @@
    "label": "Loyalty info"
   },
   {
+   "default": "Silver",
    "fieldname": "loyalty_tier",
    "fieldtype": "Select",
    "label": "Loyalty Tier",
@@ -179,10 +182,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-27 11:42:41.498665",
+ "modified": "2026-03-31 19:53:53.133569",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Customer",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {

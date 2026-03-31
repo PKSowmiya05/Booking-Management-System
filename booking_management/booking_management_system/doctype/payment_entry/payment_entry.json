@@ -8,9 +8,10 @@
   "travel_booking",
   "payment_date",
   "amount_paid",
-  "pyament_mode",
+  "payment_mode",
   "amended_from",
-  "reference_number"
+  "reference_number",
+  "payment_type"
  ],
  "fields": [
   {
@@ -30,12 +31,6 @@
    "label": "Amount Paid"
   },
   {
-   "fieldname": "pyament_mode",
-   "fieldtype": "Select",
-   "label": "Pyament Mode",
-   "options": "\nCash\nUPI\nCard\nBank Transfer"
-  },
-  {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
@@ -49,13 +44,25 @@
    "fieldname": "reference_number",
    "fieldtype": "Data",
    "label": "Reference Number"
+  },
+  {
+   "fieldname": "payment_mode",
+   "fieldtype": "Select",
+   "label": "Payment Mode",
+   "options": "\nCash\nUPI\nCard\nBank Transfer"
+  },
+  {
+   "fieldname": "payment_type",
+   "fieldtype": "Select",
+   "label": "Payment Type",
+   "options": "\nBooking Payment\nRefund Payment"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-30 12:08:37.532477",
+ "modified": "2026-03-31 23:40:01.374318",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Payment Entry",

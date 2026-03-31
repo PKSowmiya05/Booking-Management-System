@@ -18,5 +18,16 @@ frappe.ui.form.on('Travel Booking', {
                 'orange'
             );
         }
+
+        if (frm.doc.docstatus === 1) {
+            frm.add_custom_button("Request Refund", () => {
+                frappe.new_doc("Refund Request", {
+                    travel_booking: frm.doc.name,
+                    customer: frm.doc.customer,
+                    booking_amount: frm.doc.grand_total
+                });
+            });
+        }
     }
 });
+
