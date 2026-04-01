@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "Vendor-.#####",
  "creation": "2026-03-26 10:08:28.334508",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -59,10 +60,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-27 11:49:55.086647",
+ "modified": "2026-04-01 09:09:31.532456",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Vendor",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

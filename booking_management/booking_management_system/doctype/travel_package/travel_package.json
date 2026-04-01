@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "TP-.####",
  "creation": "2026-03-26 11:43:43.553290",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -101,10 +102,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-27 11:51:55.531962",
+ "modified": "2026-04-01 09:17:20.649245",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Travel Package",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

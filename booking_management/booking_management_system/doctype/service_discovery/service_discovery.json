@@ -12,8 +12,7 @@
   "is_group",
   "old_parent",
   "parent_service_discovery",
-  "category_name",
-  "commission_percentage"
+  "category_name"
  ],
  "fields": [
   {
@@ -62,18 +61,13 @@
    "label": "Category Name",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "fieldname": "commission_percentage",
-   "fieldtype": "Float",
-   "label": "Commission Percentage"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2026-03-27 11:47:32.161427",
+ "modified": "2026-04-01 10:19:50.156648",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Service Discovery",
