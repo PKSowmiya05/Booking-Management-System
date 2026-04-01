@@ -9,11 +9,13 @@
   "service_name",
   "service_category",
   "service_type",
+  "vendor",
   "price",
   "description",
   "location",
   "duration",
-  "availability"
+  "availability",
+  "commision_percentage"
  ],
  "fields": [
   {
@@ -36,7 +38,7 @@
    "fieldname": "service_type",
    "fieldtype": "Select",
    "label": "Service Type",
-   "options": "\nHotel\nPackage"
+   "options": "\nHotel\nTour Package\nFlight\nTransport"
   },
   {
    "fieldname": "price",
@@ -63,12 +65,23 @@
    "fieldtype": "Select",
    "label": "Availability",
    "options": "\nAvailable\nNot Available"
+  },
+  {
+   "fieldname": "vendor",
+   "fieldtype": "Link",
+   "label": "Vendor",
+   "options": "Vendor"
+  },
+  {
+   "fieldname": "commision_percentage",
+   "fieldtype": "Percent",
+   "label": "Commision Percentage"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-03-26 09:45:53.169605",
+ "modified": "2026-04-01 11:11:03.611025",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Service",

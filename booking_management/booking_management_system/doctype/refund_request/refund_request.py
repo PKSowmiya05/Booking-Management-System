@@ -3,7 +3,7 @@
 
 import frappe
 from frappe.model.document import Document
-from frappe.utils import nowdate
+from frappe.utils import nowdate,date_diff
 
 class RefundRequest(Document):
 
@@ -11,13 +11,19 @@ class RefundRequest(Document):
     def validate(self):
 
         doc = frappe.get_doc("Travel Booking", self.travel_booking)
+
+        if doc.status != "Confirmed":
+            frappe.throw("Refund allowed only for confirmed bookings")
+
         self.booking_amount = doc.grand_total
 
       
         travel_date = doc.travel_date
         
 
-        days_diff = frappe.utils.date_diff(travel_date, nowdate())
+        days_diff = date_diff(travel_date, nowdate())
+        if days_diff < 0:
+            frappe.throw(" Refund not allowed.")
 
         if days_diff >= 7:
             percentage = 10
@@ -30,8 +36,8 @@ class RefundRequest(Document):
 
         if doc.is_international :
             self.visa_fee = 2500
-        
-
+        else:
+            self.visa_fee=0
        
         self.refund_amount =   self.booking_amount - self.cancellation_charge - self.visa_fee
      

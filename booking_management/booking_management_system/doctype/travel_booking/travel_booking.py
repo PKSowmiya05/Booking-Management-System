@@ -48,6 +48,19 @@ class TravelBooking(Document):
         else:
             self.status = "Paid"
 
+        total_commission = 0
+
+        for item in self.booked_services:
+          service = frappe.get_doc("Service", item.service)
+
+          item.total = item.quantity * item.price
+
+          item.commission_amount = item.total * (service.commission_percentage / 100)
+
+          total_commission += item.commission_amount
+
+          self.total_commission = total_commission
+
     def before_submit(self):
         if self.is_international:
             if not self.passport_number or not self.expiry_date:
