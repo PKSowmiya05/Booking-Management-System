@@ -13,6 +13,7 @@
   "cancellation_charge",
   "visa_fee",
   "refund_amount",
+  "refund_type",
   "reason",
   "status",
   "calculation_summary"
@@ -80,13 +81,19 @@
    "fieldtype": "Text Editor",
    "label": "Calculation Summary",
    "read_only": 1
+  },
+  {
+   "fieldname": "refund_type",
+   "fieldtype": "Select",
+   "label": "Refund Type",
+   "options": "Standard\nGoodwill"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-03-31 23:24:28.200088",
+ "modified": "2026-04-02 12:39:14.628679",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Refund Request",

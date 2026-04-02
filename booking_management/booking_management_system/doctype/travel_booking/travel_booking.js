@@ -21,34 +21,30 @@ frappe.ui.form.on('Travel Booking', {
 
         if (frm.doc.docstatus === 1) {
             frm.add_custom_button("Request Refund", () => {
-                frappe.new_doc("Refund Request", {
+                frappe.prompt([
+                   {
+                     label: "Refund Type",
+                     fieldname: "refund_type",
+                     fieldtype: "Select",
+                     options: ["Standard", "Goodwill"],
+                     reqd: 1
+                    }
+                  ],
+                 function(values) {
+
+                    frappe.new_doc("Refund Request", {
                     travel_booking: frm.doc.name,
-                    customer: frm.doc.customer,
-                    booking_amount: frm.doc.grand_total
-                });
-            });
+                    refund_type: values.refund_type
+                   });
+
+                    },
+                   "Select Refund Type",
+                    "Proceed");
+ 
+                   });
+
         }
 
-        if (frm.doc.docstatus === 1) { 
-            frm.add_custom_button('Request Refund', function() {
-
-                frappe.call({
-                    method: "frappe.client.insert",
-                    args: {
-                        doc: {
-                            doctype: "Refund Request",
-                            travel_booking: frm.doc.name
-                        }
-                    },
-                    callback: function(r) {
-                        if (r.message) {
-                            frappe.msgprint("Refund Request Created Successfully");
-                        }
-                    }
-                });
-
-            });
-    }
      
         if (frm.doc.docstatus === 1) {
 
@@ -56,16 +52,22 @@ frappe.ui.form.on('Travel Booking', {
 
                 let items = frm.doc.booking_items;
 
-                // Step 1: Create simple checkbox list
+                if (!items || items.length === 0) {
+                    frappe.msgprint("No items to cancel")
+                   
+                }
+
                 let fields = [];
 
-                items.forEach(item => {
-                    fields.push({
-                        label: item.service,
-                        fieldname: item.name,
-                        fieldtype: "Check"
-                    });
-                });
+                for (let i = 0; i < items.length; i++) {
+
+                   let item = items[i];
+
+                   if (values[item.name]) {
+                   selected_items.push(item);
+                   refund_amount += item.amount;
+                          }
+                   }
 
                 let d = new frappe.ui.Dialog({
                     title: "Select Items to Cancel",
@@ -79,19 +81,20 @@ frappe.ui.form.on('Travel Booking', {
                         let refund_amount = 0;
 
                 
-                        items.forEach(item => {
-                            if (values[item.name]) {
-                                selected_items.push(item);
-                                refund_amount += item.amount;
-                            }
-                        });
+                       for (let i = 0; i < items.length; i++) {
+                           let item = items[i];
 
+                         if (values[item.name]) {
+                             selected_items.push(item);
+                             refund_amount += item.amount;
+                                   }
+                        }
                         if (selected_items.length === 0) {
                             frappe.msgprint("Please select at least one item");
                             return;
                         }
 
-                        frappe.msgprint("Refund Amount: ₹" + refund_amount);
+                        frappe.msgprint("Refund Amount" + refund_amount);
 
                         
                         frappe.call({
@@ -108,28 +111,34 @@ frappe.ui.form.on('Travel Booking', {
 
                                 let remaining_items = [];
 
-                                items.forEach(item => {
-                                    let remove = false;
-
-                                    selected_items.forEach(sel => {
-                                        if (sel.name === item.name) {
-                                            remove = true;
-                                        }
-                                    });
-
-                                    if (!remove) {
-                                        remaining_items.push(item);
+                                for(let j=0;j<selected_items.length;j++){
+                                    let sel =selected_items[j];
+                                    if(sel.name == item.name){
+                                        remove=true;
+                                        break
                                     }
-                                });
+                                }
+                                if(!remove){
+                                    remaining_items.push(item);
+                                }
+                            
 
-                                frm.set_value("booking_items", remaining_items);
+                                frm.clear_table("booking_items");
+
+                                for (let i = 0; i < remaining_items.length; i++) {
+
+                                let item = remaining_items[i];
+ 
+                                let row = frm.add_child("booking_items");
+
+                              Object.assign(row, item);
+                                 } 
 
 
                                 let new_total = 0;
-                                remaining_items.forEach(item => {
-                                    new_total += item.amount;
-                                });
-
+                               for (let i = 0; i < remaining_items.length; i++) {
+                                     new_total += remaining_items[i].amount;
+                                    }
                                 frm.set_value("grand_total", new_total);
 
                                 frm.save();
