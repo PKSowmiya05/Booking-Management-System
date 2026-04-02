@@ -17,7 +17,13 @@ class RefundRequest(Document):
 
         self.booking_amount = doc.grand_total
 
-      
+        if self.refund_type =="Goodwill":
+            self.cancellation_charge=0
+            self.visa_fee=0
+            self.refund_amount=self.booking_amount
+            self.calculation_summary=f"""Goodwill refund applied
+                                          Full refund given:{self.refund_amount} """
+            return
         travel_date = doc.travel_date
         
 
