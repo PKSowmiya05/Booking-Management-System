@@ -18,8 +18,10 @@ class TravelBooking(Document):
 
         total_amount = 0
         for item in self.booked_package:
-            item.total = item.quantity * item.price
-            toatl_amount += item.total
+            doc = frappe.get_value("Travel Package", item.travel_package, "seasonal_price") or 0
+            item.price=doc
+            item.total = (item.quantity or 0) * doc 
+            total_amount += item.total
 
         self.total_amount = total_amount
 
@@ -36,6 +38,7 @@ class TravelBooking(Document):
             self.high_value_booking = 0
 
         total_paid = 0
+
         for item in self.payment_schedule:
             total_paid += item.paid_amount or 0
 
@@ -48,18 +51,18 @@ class TravelBooking(Document):
         else:
             self.status = "Paid"
 
-        total_commission = 0
+        # total_commission = 0
 
-        for item in self.booked_services:
-          service = frappe.get_doc("Service", item.service)
+        # # for item in self.booked_package:
+        # #   service = frappe.get_doc("Service", item.service)
 
-          item.total = item.quantity * item.price
+        # #   item.total = item.quantity * item.price
 
-          item.commission_amount = item.total * (service.commission_percentage / 100)
+        # #   item.commission_amount = item.total * (service.commission_percentage / 100)
 
-          total_commission += item.commission_amount
+        # #   total_commission += item.commission_amount
 
-          self.total_commission = total_commission
+        # #   self.total_commission = total_commission
 
     def before_submit(self):
         if self.is_international:
@@ -67,8 +70,8 @@ class TravelBooking(Document):
                 frappe.throw("Passport details are mandatory")
 
         for item in self.booked_package:
-            doc = frappe.get_doc("Travel Package", item.travel_package)
-            if item.quantity > doc.available_slots:
+            doc = frappe.db.get_value("Travel Package", item.travel_package,"available_slots")
+            if item.quantity > doc:
                 frappe.throw("Not enough slots")
 
     def on_submit(self):
@@ -80,7 +83,7 @@ class TravelBooking(Document):
             package = frappe.get_doc("Travel Package", item.travel_package)
             package.booked_slots += item.quantity
             package.save()
-        customer= frappe.get_doc("Customer",self.customer)
+    
         count = frappe.db.count("Travel Booking", {
             "customer": self.customer,
             "docstatus":1

@@ -23,5 +23,18 @@ frappe.ui.form.on('Refund Request', {
 
             });
         }
+        if (frm.doc.docstatus === 1) {
+
+            frm.add_custom_button("Raise Dispute", () => {
+
+                frappe.new_doc("Dispute", {
+                    refund_request: frm.doc.name,
+                    travel_booking: frm.doc.travel_booking,
+                    customer: frm.doc.customer,
+                    original_refund: frm.doc.refund_amount
+                });
+
+            });
+        }
     }
 });

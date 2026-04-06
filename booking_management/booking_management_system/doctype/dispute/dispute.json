@@ -1,0 +1,103 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-04-05 10:42:12.930109",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "refund_request",
+  "travel_booking",
+  "customer",
+  "issue_description",
+  "expected_amount",
+  "original_refund",
+  "proposed_amount",
+  "difference_amount",
+  "resolution_note",
+  "status"
+ ],
+ "fields": [
+  {
+   "fieldname": "refund_request",
+   "fieldtype": "Link",
+   "label": "Refund Request",
+   "options": "Refund Request"
+  },
+  {
+   "fieldname": "travel_booking",
+   "fieldtype": "Link",
+   "label": "Travel Booking",
+   "options": "Travel Booking"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer"
+  },
+  {
+   "fieldname": "issue_description",
+   "fieldtype": "Small Text",
+   "label": "Issue Description"
+  },
+  {
+   "fieldname": "expected_amount",
+   "fieldtype": "Currency",
+   "label": "Expected Amount"
+  },
+  {
+   "fieldname": "original_refund",
+   "fieldtype": "Currency",
+   "label": "Original Refund"
+  },
+  {
+   "fieldname": "proposed_amount",
+   "fieldtype": "Currency",
+   "label": "Proposed Amount"
+  },
+  {
+   "fieldname": "difference_amount",
+   "fieldtype": "Currency",
+   "label": "Difference Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "resolution_note",
+   "fieldtype": "Text",
+   "label": "Resolution Note"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nOpen\nUnder Review\nAccepted\nRejected\nResolved"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-04-05 11:00:52.969162",
+ "modified_by": "Administrator",
+ "module": "Booking Management System",
+ "name": "Dispute",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
