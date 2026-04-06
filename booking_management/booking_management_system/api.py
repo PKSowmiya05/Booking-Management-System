@@ -163,3 +163,25 @@ def bulk_refund_background(doc, vendor, travel_package):
         Success: {success}<br>
         Failed: {failed}"""
         )
+    
+@frappe.whitelist()
+def  supplementary_refund(dispute_name):
+
+    dispute = frappe.get_doc("Dispute", dispute_name)
+
+    if dispute.difference_amount <= 0:
+        return "No extra refund required"
+
+  
+    payment = frappe.new_doc("Payment Entry")
+
+    payment.travel_booking = dispute.travel_booking
+    payment.payment_date = frappe.utils.nowdate()
+    payment.amount_paid = dispute.difference_amount
+    payment.payment_mode = "Bank Transfer"
+    payment.reference_number = dispute.refund_request
+    payment.payment_type = "Refund Payment"
+
+    payment.insert()
+
+    return "Supplementary Refund Created"    
