@@ -1,0 +1,41 @@
+{
+ "add_total_row": 0,
+ "add_translate_data": 0,
+ "columns": [],
+ "creation": "2026-04-06 12:27:31.436005",
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "letter_head": null,
+ "modified": "2026-04-06 12:35:44.887262",
+ "modified_by": "Administrator",
+ "module": "Booking Management System",
+ "name": "Upcoming Departures",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "query": "SELECT\n    tb.name AS \"Booking ID:Link/Travel Booking\",\n    tb.customer AS \"Customer:Link/Customer\",\n    tb.travel_start_date AS \"Travel Date:Date\",\n    tb.status AS \"Payment Status:Data\",\n    tb.has_issues AS \"Open Issues:Check\"\nFROM `tabTravel Booking` tb\nWHERE tb.travel_start_date BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)\nORDER BY tb.travel_start_date ASC;",
+ "ref_doctype": "Travel Booking",
+ "report_name": "Upcoming Departures",
+ "report_type": "Query Report",
+ "roles": [
+  {
+   "role": "System Manager"
+  },
+  {
+   "role": "Travel Agent"
+  },
+  {
+   "role": "Senior Agent"
+  },
+  {
+   "role": "Finance Mnager"
+  },
+  {
+   "role": "Operation Head"
+  }
+ ],
+ "timeout": 0
+}

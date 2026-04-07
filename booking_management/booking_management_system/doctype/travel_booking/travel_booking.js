@@ -11,7 +11,6 @@ frappe.ui.form.on('Travel Booking', {
 
         if (frm.doc.grand_total > 50000) {
 
-            frm.dashboard.clear_comment(); 
 
             frm.dashboard.add_comment(
                 "High Value Booking",
@@ -45,138 +44,97 @@ frappe.ui.form.on('Travel Booking', {
 
         }
 
-     
-        if (frm.doc.docstatus === 1) {
+     if (frm.doc.docstatus === 1) {
 
-            frm.add_custom_button('Partial Cancellation', function() {
+    frm.add_custom_button('Partial Cancellation', function() {
 
-                let items = frm.doc.booking_items;
+        let items = frm.doc.booked_package;
 
-                if (!items || items.length === 0) {
-                    frappe.msgprint("No items to cancel")
-                   
-                }
+        if (!items || items.length === 0) {
+            frappe.msgprint("No items to cancel");
+            return;
+        }
 
-                let fields = [];
+        let fields = [];
 
-                for (let i = 0; i < items.length; i++) {
+        items.forEach(item => {
+            fields.push({
+                label: item.travel_package,
+                fieldname: item.name,
+                fieldtype: "Check"
+            });
+        });
 
-                   let item = items[i];
+        let d = new frappe.ui.Dialog({
+            title: "Select Items to Cancel",
+            fields: fields,
 
-                   if (values[item.name]) {
-                   selected_items.push(item);
-                   refund_amount += item.amount;
-                          }
-                   }
+            primary_action_label: "Confirm",
 
-                let d = new frappe.ui.Dialog({
-                    title: "Select Items to Cancel",
-                    fields: fields,
+            primary_action(values) {
 
-                    primary_action_label: "Confirm",
+                let selected_items = [];
+                let remaining_items = [];
+                let refund_amount = 0;
 
-                    primary_action(values) {
-
-                        let selected_items = [];
-                        let refund_amount = 0;
-
-                
-                       for (let i = 0; i < items.length; i++) {
-                           let item = items[i];
-
-                         if (values[item.name]) {
-                             selected_items.push(item);
-                             refund_amount += item.amount;
-                                   }
-                        }
-                        if (selected_items.length === 0) {
-                            frappe.msgprint("Please select at least one item");
-                            return;
-                        }
-
-                        frappe.msgprint("Refund Amount" + refund_amount);
-
-                        
-                        frappe.call({
-                            method: "frappe.client.insert",
-                            args: {
-                                doc: {
-                                    doctype: "Refund Request",
-                                    travel_booking: frm.doc.name,
-                                    refund_amount: refund_amount,
-                                    is_partial: 1
-                                }
-                            },
-                            callback: function() {
-
-                                let remaining_items = [];
-
-                                for(let j=0;j<selected_items.length;j++){
-                                    let sel =selected_items[j];
-                                    if(sel.name == item.name){
-                                        remove=true;
-                                        break
-                                    }
-                                }
-                                if(!remove){
-                                    remaining_items.push(item);
-                                }
-                            
-
-                                frm.clear_table("booking_items");
-
-                                for (let i = 0; i < remaining_items.length; i++) {
-
-                                let item = remaining_items[i];
- 
-                                let row = frm.add_child("booking_items");
-
-                              Object.assign(row, item);
-                                 } 
-
-
-                                let new_total = 0;
-                               for (let i = 0; i < remaining_items.length; i++) {
-                                     new_total += remaining_items[i].amount;
-                                    }
-                                frm.set_value("grand_total", new_total);
-
-                                frm.save();
-
-                                frappe.msgprint("Partial Cancellation Done");
-                            }
-                        });
-
-                        d.hide();
+                items.forEach(item => {
+                    if (values[item.name]) {
+                        selected_items.push(item);
+                        refund_amount += item.amount;
+                    } else {
+                        remaining_items.push(item);
                     }
                 });
 
-                d.show();
-            });
-        }
+                if (selected_items.length === 0) {
+                    frappe.msgprint("Please select at least one item");
+                    return;
+                }
+
+                frappe.msgprint("Refund Amount: " + refund_amount);
+
+                frappe.call({
+                    method: "frappe.client.insert",
+                    args: {
+                        doc: {
+                            doctype: "Refund Request",
+                            travel_booking: frm.doc.name,
+                            refund_amount: refund_amount,
+                            is_partial: 1
+                        }
+                    },
+                    callback: function() {
+
+                      
+                        frm.clear_table("booked_package");
+
+                        remaining_items.forEach(item => {
+                            let row = frm.add_child("booked_package");
+                            Object.assign(row, item);
+                        });
+
+                        let new_total = 0;
+                        remaining_items.forEach(item => {
+                            new_total += item.amount;
+                        });
+
+                        frm.set_value("grand_total", new_total);
+
+                        frm.refresh_field("booked_package");
+                        frm.save();
+
+                        frappe.msgprint("Partial Cancellation Done");
+                    }
+                });
+
+                d.hide();
+            }
+        });
+
+        d.show();
+    });
+}
+       
     }
 });
-frappe.ui.form.on("Booking Item", {
-    service: function(frm, cdt, cdn) {
-        let row = locals[cdt][cdn];
 
-        if (row.service) {
-            frappe.db.get_doc("Service", row.service).then(doc => {
-                row.service_type = doc.service_type;
-                row.vendor = doc.vendor;
-                row.price = doc.price;
-                row.quantity = 1;
-                row.total = row.price * row.quantity;
-
-                frm.refresh_field("services");
-            });
-        }
-    },
-
-    quantity: function(frm, cdt, cdn) {
-        let row = locals[cdt][cdn];
-        row.total = row.price * row.quantity;
-
-        frm.refresh_field("services");
-    }
-});

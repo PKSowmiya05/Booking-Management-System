@@ -6,14 +6,14 @@
 
 // 	},
 // });
-frappe.ui.form.on("Service", {
-    refresh: function(frm) {
-        // frm.set_query("service_category", function() {
-        //     return {
-        //         filters: {
-        //             is_group: 0
-        //         }
-        //     };
-        // });
-    }
-});
+// frappe.ui.form.on("Service", {
+//     refresh: function(frm) {
+//         // frm.set_query("service_category", function() {
+//         //     return {
+//         //         filters: {
+//         //             is_group: 0
+//         //         }
+//         //     };
+//         // });
+//     }
+// });

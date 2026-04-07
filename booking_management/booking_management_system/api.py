@@ -183,5 +183,6 @@ def  supplementary_refund(dispute_name):
     payment.payment_type = "Refund Payment"
 
     payment.insert()
+    payment.submit()
 
     return "Supplementary Refund Created"    

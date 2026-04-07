@@ -9,10 +9,11 @@ class RefundRequest(Document):
 
 
     def validate(self):
-
+        if not self.travel_booking:
+            frappe.throw("Please select a Travel Booking")
         doc = frappe.get_doc("Travel Booking", self.travel_booking)
 
-        if doc.status != "Confirmed":
+        if doc.status != "Completed":
             frappe.throw("Refund allowed only for confirmed bookings")
 
         self.booking_amount = doc.grand_total
@@ -24,7 +25,7 @@ class RefundRequest(Document):
             self.calculation_summary=f"""Goodwill refund applied
                                           Full refund given:{self.refund_amount} """
             return
-        travel_date = doc.travel_date
+        travel_date = doc.travel_start_date
         
 
         days_diff = date_diff(travel_date, nowdate())
