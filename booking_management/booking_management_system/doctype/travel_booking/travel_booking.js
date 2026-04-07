@@ -43,8 +43,7 @@ frappe.ui.form.on('Travel Booking', {
                    });
 
         }
-
-     if (frm.doc.docstatus === 1) {
+if (frm.doc.docstatus === 1) {
 
     frm.add_custom_button('Partial Cancellation', function() {
 
@@ -68,25 +67,23 @@ frappe.ui.form.on('Travel Booking', {
         let d = new frappe.ui.Dialog({
             title: "Select Items to Cancel",
             fields: fields,
-
             primary_action_label: "Confirm",
 
             primary_action(values) {
 
-                let selected_items = [];
-                let remaining_items = [];
                 let refund_amount = 0;
 
                 items.forEach(item => {
                     if (values[item.name]) {
-                        selected_items.push(item);
-                        refund_amount += item.amount;
-                    } else {
-                        remaining_items.push(item);
+
+                       
+                        refund_amount += item.total || 0;
+
+                        item.status = "Cancelled";
                     }
                 });
 
-                if (selected_items.length === 0) {
+                if (refund_amount === 0) {
                     frappe.msgprint("Please select at least one item");
                     return;
                 }
@@ -105,20 +102,16 @@ frappe.ui.form.on('Travel Booking', {
                     },
                     callback: function() {
 
-                      
-                        frm.clear_table("booked_package");
-
-                        remaining_items.forEach(item => {
-                            let row = frm.add_child("booked_package");
-                            Object.assign(row, item);
-                        });
-
+                       
                         let new_total = 0;
-                        remaining_items.forEach(item => {
-                            new_total += item.amount;
+
+                        items.forEach(item => {
+                            if (item.status !== "Cancelled") {
+                                new_total += item.total || 0;
+                            }
                         });
 
-                        frm.set_value("grand_total", new_total);
+                               
 
                         frm.refresh_field("booked_package");
                         frm.save();
