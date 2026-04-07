@@ -15,6 +15,7 @@
   {
    "fieldname": "travel_booking",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Travel Booking",
    "options": "Travel Booking"
   },
@@ -40,6 +41,7 @@
   {
    "fieldname": "paid_amount",
    "fieldtype": "Currency",
+   "in_list_view": 1,
    "label": "Paid Amount"
   }
  ],
@@ -47,7 +49,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2026-03-30 11:51:15.313628",
+ "modified": "2026-04-06 22:52:07.755576",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Payment Schedule",

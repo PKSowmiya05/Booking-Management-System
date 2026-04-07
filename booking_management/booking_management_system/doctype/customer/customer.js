@@ -8,9 +8,9 @@
 // });
 frappe.ui.form.on('Customer', {
     refresh(frm) {
-        if (frm.doc.outstanding_amount > 0 || frm.doc.has_open_disputes) {
+        if (frm.doc.has_overdue_payments > 0 ) {
             frm.dashboard.set_headline_alert(
-                "Outstanding payment or dispute exists",
+                "Outstanding payment ",
                 "red"
             );
         }
