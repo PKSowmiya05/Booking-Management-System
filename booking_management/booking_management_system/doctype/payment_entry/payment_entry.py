@@ -23,10 +23,16 @@ class PaymentEntry(Document):
             if existing:
                 frappe.throw("Refund already paid!")    
 
-    
+    def before_insert(self):
+   
+     if self.payment_type == "Refund Payment" and self.refund_request:
+       refund_amount = frappe.get_value("Refund Request", self.refund_request, "refund_amount") or 0
+       self.amount_paid = refund_amount 
+     
+
     def on_submit(self):
-        if self.payment_type == "Booking Payment":
-         doc = frappe.get_doc("Travel Booking", self.travel_booking)
+     if self.payment_type == "Booking Payment":
+        doc = frappe.get_doc("Travel Booking", self.travel_booking)
 
         remaining = self.amount_paid
 
@@ -53,7 +59,7 @@ class PaymentEntry(Document):
 
         doc.balance_amount = doc.grand_total - total_paid
 
-        if total_paid == 0:
+        if doc.workflow_state == "Approved" and total_paid == 0:
             doc.status = "Confirmed"
         elif total_paid < doc.grand_total:
             doc.status = "Partially Paid"
@@ -63,7 +69,6 @@ class PaymentEntry(Document):
         doc.save()
 
    
-        if self.payment_type == "Refund Payment" :
-          doc = frappe.get_doc("Refund Request", self.refund_request)
-          doc.status = "Paid"
-          doc.save()
+
+     if self.payment_type == "Refund Payment" and self.refund_request:
+        frappe.db.set_value("Refund Request", self.refund_request, "paid", 1)

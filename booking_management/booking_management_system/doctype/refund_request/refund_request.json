@@ -15,8 +15,8 @@
   "refund_amount",
   "refund_type",
   "reason",
-  "status",
-  "calculation_summary"
+  "calculation_summary",
+  "paid"
  ],
  "fields": [
   {
@@ -71,12 +71,6 @@
    "label": "Reason"
   },
   {
-   "fieldname": "status",
-   "fieldtype": "Select",
-   "label": "Status",
-   "options": "Draft\nPending Senior Approval\nPending Finance Approval\nApproved\nRejected\nPaid"
-  },
-  {
    "fieldname": "calculation_summary",
    "fieldtype": "Text Editor",
    "label": "Calculation Summary",
@@ -87,13 +81,19 @@
    "fieldtype": "Select",
    "label": "Refund Type",
    "options": "Standard\nGoodwill"
+  },
+  {
+   "default": "0",
+   "fieldname": "paid",
+   "fieldtype": "Check",
+   "label": "Paid"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2026-04-02 12:39:14.628679",
+ "modified": "2026-04-07 10:09:13.440397",
  "modified_by": "Administrator",
  "module": "Booking Management System",
  "name": "Refund Request",
